@@ -16,5 +16,5 @@ setup(
     ],
     keywords='rcnn',
     packages=find_packages(),
-    install_requires=['numpy', 'scikit-image'],
+    install_requires=['numpy', 'scikit-image', 'matplotlib'],
 )

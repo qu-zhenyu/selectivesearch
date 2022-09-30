@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
+from functools import cmp_to_key
 
 import skimage.io
 import skimage.feature
@@ -285,7 +286,7 @@ def selective_search(
     while S != {}:
 
         # get highest similarity
-        i, j = sorted(S.items(), key=lambda i: i[1])[-1][0]
+        i, j = sorted(S.items(), key=cmp_to_key(lambda a, b: a[1] - b[1]))[-1][0]
 
         # merge corresponding regions
         t = max(R.keys()) + 1.0
