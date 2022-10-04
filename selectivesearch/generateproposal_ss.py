@@ -86,20 +86,21 @@ scale = 25
 sigma = 0.8
 min_size = 20
 
-# label = 'train'
+# label = 'trainval'
 label = 'test'
 
-with open('/date/zc/wetectron-master/datasets/smoke/ImageSets/Main/' + label + '_new.txt', 'r') as f:
+with open('../data/VOCdevkit/VOC2007/ImageSets/Main/' + label + '.txt', 'r') as f:
     filelist = f.readlines()
 # print(filelist)
+
 for file in filelist:
     try:
         file = file.strip('\n')
         print('file', file)
 
-        img = imread('/date/zc/wetectron-master/datasets/smoke/JPEGImages/' + file + '.jpg')
+        img = imread('../data/VOCdevkit/VOC2007/JPEGImages/' + file + '.jpg')
 
-        min_gt_size, bbox = get_minsize('/date/zc/wetectron-master/datasets/smoke/Annotations/' + file + '.xml')
+        min_gt_size, bbox = get_minsize('../data/VOCdevkit/VOC2007/Annotations/' + file + '.xml')
         if min(img.shape[0], img.shape[1]) >= 3000:
             min_size = max(int(min_gt_size // 1.5), 10)
             scale = 50
@@ -129,6 +130,6 @@ for file in filelist:
     except Exception as e:
         print(file, e)
 
-file_name = 'SS-smoke_' + label + '-boxes-nogt.pkl'
+file_name = 'SS_' + label + '_boxes.pkl'
 print(file_name)
 save_object(dict(boxes=boxes, indexes=ids), file_name)
